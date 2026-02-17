@@ -1,2 +1,2 @@
-# xamspicturalshop
+# xamspicturalshop.github.io
 web
