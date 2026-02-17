@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - XamsPicturalShop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid white;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .welcome-section {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-section h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .welcome-section p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card:nth-child(1) .stat-icon { background: #e3f2fd; }
+        .stat-card:nth-child(2) .stat-icon { background: #f3e5f5; }
+        .stat-card:nth-child(3) .stat-icon { background: #e8f5e9; }
+        .stat-card:nth-child(4) .stat-icon { background: #fff3e0; }
+
+        .stat-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .stat-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .menu-card:hover {
+            transform: scale(1.02);
+        }
+
+        .menu-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+
+        .menu-content {
+            padding: 25px;
+        }
+
+        .menu-content h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        .menu-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .welcome-section h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🛍️ XamsPicturalShop</div>
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="produk.html">Produk</a>
+            <a href="service.html">Service Center</a>
+        </div>
+        <div class="user-info">
+            <span id="userName">User</span>
+            <div class="user-avatar" id="userAvatar">U</div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="welcome-section">
+            <h1>Selamat Datang, <span id="welcomeName">User</span>! 👋</h1>
+            <p>Semoga harimu menyenangkan. Kelola toko Anda dengan mudah melalui dashboard ini.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📦</div>
+                <h3>150+ Produk</h3>
+                <p>Katalog produk lengkap dengan berbagai kategori untuk kebutuhan Anda.</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🛒</div>
+                <h3>Order Via WA</h3>
+                <p>Pemesanan mudah dan cepat langsung melalui WhatsApp.</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔧</div>
+                <h3>24/7 Support</h3>
+                <p>Tim support siap membantu kapan saja Anda membutuhkan.</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <h3>4,3 Rating</h3>
+                <p>Kepuasan pelanggan adalah prioritas utama kami.</p>
+            </div>
+        </div>
+
+        <div class="menu-grid">
+            <a href="produk.html" class="menu-card">
+                <div class="menu-image">🛍️</div>
+                <div class="menu-content">
+                    <h3>Belanja Produk</h3>
+                    <p>Jelajahi katalog produk kami dan pesan langsung via WhatsApp dengan harga terbaik.</p>
+                    <span class="badge">Lihat Produk →</span>
+                </div>
+            </a>
+
+            <a href="service.html" class="menu-card">
+                <div class="menu-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">🔧</div>
+                <div class="menu-content">
+                    <h3>Service Center</h3>
+                    <p>Laporkan bug atau masalah, hubungi kami melalui sosial media dan kontak yang tersedia.</p>
+                    <span class="badge">Hubungi Kami →</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Cek login
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            window.location.href = 'index.html';
+        }
+
+        // Tampilkan nama user
+        document.getElementById('userName').textContent = currentUser.name;
+        document.getElementById('welcomeName').textContent = currentUser.name;
+        document.getElementById('userAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Center - XamsPicturalShop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .back-btn {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid white;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header-section h1 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .header-section p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Form Section */
+        .form-section {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-section h2 {
+            color: #333;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-card h3 {
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .contact-info h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .contact-info p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .contact-info a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Social Media */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .social-btn {
+            padding: 15px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .social-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .social-btn.whatsapp { background: #25d366; }
+        .social-btn.instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .social-btn.facebook { background: #1877f2; }
+        .social-btn.twitter { background: #1da1f2; }
+
+        /* Reports List */
+        .reports-section {
+            margin-top: 40px;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .reports-section h2 {
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .report-item {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .report-type {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .report-date {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .report-title {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .report-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-processed { background: #d4edda; color: #155724; }
+
+        .empty-reports {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='dashboard.html'">🛍️ XamsPicturalShop</div>
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="produk.html">Produk</a>
+            <a href="service.html">Service Center</a>
+            <a href="dashboard.html" class="back-btn">← Kembali</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header-section">
+            <h1>🔧 Service Center</h1>
+            <p>Laporkan bug atau masalah, dan hubungi kami melalui berbagai channel</p>
+        </div>
+
+        <div class="content-grid">
+            <!-- Form Laporan -->
+            <div class="form-section">
+                <h2>📝 Buat Laporan</h2>
+                <div id="formMessage" class="message"></div>
+                <form id="reportForm" onsubmit="submitReport(event)">
+                    <div class="form-group">
+                        <label>Jenis Laporan</label>
+                        <select id="reportType" required>
+                            <option value="">Pilih jenis laporan</option>
+                            <option value="bug">🐛 Bug/Error</option>
+                            <option value="feature">✨ Fitur Baru</option>
+                            <option value="complaint">😞 Keluhan</option>
+                            <option value="other">📝 Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Judul Laporan</label>
+                        <input type="text" id="reportTitle" placeholder="Contoh: Error saat checkout" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Detail Masalah</label>
+                        <textarea id="reportDetail" placeholder="Jelaskan detail masalah yang Anda alami..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <span>📤</span> Kirim Laporan
+                    </button>
+                </form>
+            </div>
+
+            <!-- Info Kontak -->
+            <div class="contact-section">
+                <div class="contact-card">
+                    <h3>📞 Hubungi Kami</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div class="contact-info">
+                            <h4>WhatsApp</h4>
+                            <p><a href="https://wa.me/6281241360757" target="_blank">+62 812-4136-0757</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-info">
+                            <h4>Email</h4>
+                            <p><a href="mailto:xamzpicturalxp@gmail.com">xamzpicturalxp@gmail.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">🕐</div>
+                        <div class="contact-info">
+                            <h4>Jam Operasional</h4>
+                            <p>Senin - Minggu: 08.00 - 22.00 WIB</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <h3>🌐 Sosial Media</h3>
+                    <div class="social-grid">
+                        <a href="https://wa.me/6281241360757" class="social-btn whatsapp" target="_blank">
+                            <span>💬</span> WhatsApp
+                        </a>
+                        <a href="https://instagram.com/kyyaja001" class="social-btn instagram" target="_blank">
+                            <span>📷</span> Instagram
+                        </a>
+                        <a href="https://facebook.com/kyyaja001" class="social-btn facebook" target="_blank">
+                            <span>👥</span> Facebook
+                        </a>
+                        <a href="https://twitter.com/kyyaja001" class="social-btn twitter" target="_blank">
+                            <span>🐦</span> Twitter
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Riwayat Laporan -->
+        <div class="reports-section">
+            <h2>📋 Riwayat Laporan Anda</h2>
+            <div id="reportsList">
+                <!-- Reports akan di-generate oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cek login
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            window.location.href = 'index.html';
+        }
+
+        // Submit Laporan
+        function submitReport(e) {
+            e.preventDefault();
+            
+            const type = document.getElementById('reportType').value;
+            const title = document.getElementById('reportTitle').value;
+            const detail = document.getElementById('reportDetail').value;
+            
+            const report = {
+                id: Date.now(),
+                userEmail: currentUser.email,
+                type: type,
+                title: title,
+                detail: detail,
+                status: 'pending',
+                createdAt: new Date().toLocaleString('id-ID')
+            };
+            
+            // Simpan ke localStorage
+            let reports = JSON.parse(localStorage.getItem('reports')) || [];
+            reports.push(report);
+            localStorage.setItem('reports', JSON.stringify(reports));
+            
+            // Tampilkan pesan sukses
+            const msg = document.getElementById('formMessage');
+            msg.className = 'message success';
+            msg.textContent = 'Laporan berhasil dikirim! Tim kami akan segera memprosesnya.';
+            
+            // Reset form
+            document.getElementById('reportForm').reset();
+            
+            // Refresh list
+            renderReports();
+            
+            // Hilangkan pesan setelah 3 detik
+            setTimeout(() => {
+                msg.style.display = 'none';
+            }, 3000);
+        }
+
+        // Render Riwayat Laporan
+        function renderReports() {
+            const reportsList = document.getElementById('reportsList');
+            const allReports = JSON.parse(localStorage.getItem('reports')) || [];
+            const userReports = allReports.filter(r => r.userEmail === currentUser.email);
+            
+            if (userReports.length === 0) {
+                reportsList.innerHTML = `
+                    <div class="empty-reports">
+                        <div style="font-size: 60px; margin-bottom: 20px;">📭</div>
+                        <h3>Belum Ada Laporan</h3>
+                        <p>Anda belum pernah mengirimkan laporan sebelumnya.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Sort by newest
+            userReports.sort((a, b) => b.id - a.id);
+            
+            reportsList.innerHTML = userReports.map(report => {
+                const typeLabels = {
+                    'bug': '🐛 Bug',
+                    'feature': '✨ Fitur',
+                    'complaint': '😞 Keluhan',
+                    'other': '📝 Lainnya'
+                };
+                
+                return `
+                    <div class="report-item">
+                        <div class="report-header">
+                            <span class="report-type">${typeLabels[report.type]}</span>
+                            <span class="report-date">${report.createdAt}</span>
+                        </div>
+                        <div class="report-title">${report.title}</div>
+                        <p style="color: #666; margin-top: 5px;">${report.detail}</p>
+                        <span class="report-status ${report.status === 'pending' ? 'status-pending' : 'status-processed'}">
+                            ${report.status === 'pending' ? '⏳ Menunggu' : '✅ Diproses'}
+                        </span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Initialize
+        renderReports();
+    </script>
+</body>
+</html>
